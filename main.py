@@ -17,8 +17,9 @@ def draw_Grid(screen_size, rows, surface):
 
 
 def redraw_Window(surface):
-    global screen_size, rows
+    global screen_size, rows, s
     surface.fill((0, 0, 0))
+    s.draw(surface)
     draw_Grid(screen_size, rows, surface)
     pygame.display.update()
 
@@ -32,13 +33,13 @@ def message_Box():
 
 
 def main():
-    global screen_size, rows
+    global screen_size, rows, s
 
     screen_size = 500
     rows = 20
 
     win = pygame.display.set_mode((screen_size, screen_size))
-    snake = sn((0, 255, 0), (10, 10))
+    s = sn.snake((0, 255, 0), (10, 10))
 
     clock = pygame.time.Clock()
 
@@ -46,6 +47,8 @@ def main():
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
+        s.move()
         redraw_Window(win)
+
 
 main()
