@@ -65,6 +65,12 @@ def main():
         if s.body[0].pos == snack.pos:
             s.add_Cube()
             snack = cb.cube(random_Snack(rows, s), color = (0,255,0))
+        for x in range(len(s.body)):
+            if s.body[x].pos in list(map(lambda z:z.pos, s.body[x+1:])):
+                print('Score: ', len(s.body))
+                s.reset((10, 10))
+                break
+            
         redraw_Window(win)
 
 
