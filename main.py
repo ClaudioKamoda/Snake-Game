@@ -1,5 +1,7 @@
 import pygame
+import random
 import snake as sn
+import cube as cb
 
 
 def draw_Grid(screen_size, rows, surface):
@@ -17,15 +19,26 @@ def draw_Grid(screen_size, rows, surface):
 
 
 def redraw_Window(surface):
-    global screen_size, rows, s
+    global screen_size, rows, s, snack
     surface.fill((0, 0, 0))
     s.draw(surface)
+    snack.draw(surface)
     draw_Grid(screen_size, rows, surface)
     pygame.display.update()
 
 
-def random_Snack(rows, items):
-    pass
+def random_Snack(rows, snk):  
+    positions = snk.body
+
+    while True:
+        x = random.randrange(rows)
+        y = random.randrange(rows)
+        if len(list(filter(lambda z:z.pos == (x,y), positions))) > 0:
+            continue
+        else:
+            break
+
+    return (x,y)
 
 
 def message_Box():
@@ -33,13 +46,14 @@ def message_Box():
 
 
 def main():
-    global screen_size, rows, s
+    global screen_size, rows, s, snack
 
     screen_size = 500
     rows = 20
 
     win = pygame.display.set_mode((screen_size, screen_size))
     s = sn.snake((0, 255, 0), (10, 10))
+    snack = cb.cube(random_Snack(rows, s), color = (0,255,0))
 
     clock = pygame.time.Clock()
 
@@ -48,6 +62,9 @@ def main():
         pygame.time.delay(50)
         clock.tick(10)
         s.move()
+        if s.body[0].pos == snack.pos:
+            s.add_Cube()
+            snack = cb.cube(random_Snack(rows, s), color = (0,255,0))
         redraw_Window(win)
 
 
