@@ -21,7 +21,7 @@ class cube(object):
         i = self.pos[0]
         j = self.pos[1]
 
-        pygame.draw.rect(surface, self.color, (i*dis+1, j*dis+1, dis-2, dis-2))
+        pygame.draw.rect(surface, self.color, (i*dis+1, j*dis+1, dis-1, dis-1))
 
         if eyes:
             center = dis//2

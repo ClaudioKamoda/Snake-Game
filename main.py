@@ -66,6 +66,7 @@ def main():
                 print('Score: ', len(s.body))
                 message_Box('Game Over', 'Play Again')
                 s.reset((0, 255, 0), (10, 10))
+                flag = False
                 break
 
         redraw_Window(win)
